@@ -6,10 +6,11 @@ public class PlayerMovement2D : MonoBehaviour
     public float jumpForce = 10f;
     private Rigidbody2D rb;
     private bool isGrounded;
-    
-    
 
-     
+    public int trampolineBoost = 15000;
+
+    public Animator trampolineAnim;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,6 +33,11 @@ public class PlayerMovement2D : MonoBehaviour
         {
             isGrounded = true;
         }
+
+        if (collision.gameObject.tag == "Tramp")
+        {
+            StartCoroutine(Trampoline());
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -46,10 +52,20 @@ public class PlayerMovement2D : MonoBehaviour
     {
         isGrounded = false;
     }
-  public IEnumerator SpeedBoost(float extraSpeed, float duration)
+    public IEnumerator SpeedBoost(float extraSpeed, float duration)
     {
         moveSpeed += extraSpeed;
         yield return new WaitForSeconds(duration);
         moveSpeed -= extraSpeed;
+    }
+    
+    public IEnumerator Trampoline()
+    {
+        trampolineAnim.SetBool("isActive", true); 
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForce(new Vector2(0, 1 * trampolineBoost));
+        yield return new WaitForSeconds(1);
+        trampolineAnim.SetBool("isActive", false); 
+
     }
 }
