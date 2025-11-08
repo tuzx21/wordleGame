@@ -1,12 +1,15 @@
 using UnityEngine;
-
+using System.Collections;
 public class PlayerMovement2D : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     private Rigidbody2D rb;
     private bool isGrounded;
+    
+    
 
+     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,5 +37,11 @@ public class PlayerMovement2D : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         isGrounded = false;
+    }
+  public IEnumerator SpeedBoost(float extraSpeed, float duration)
+    {
+        moveSpeed += extraSpeed;
+        yield return new WaitForSeconds(duration);
+        moveSpeed -= extraSpeed;
     }
 }
