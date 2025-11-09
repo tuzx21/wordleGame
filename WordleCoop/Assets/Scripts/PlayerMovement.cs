@@ -7,6 +7,7 @@ public class PlayerMovement2D : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
     private Rigidbody2D rb;
+    private SpriteRenderer playerSprite;
     private bool isGrounded;
     
     
@@ -15,11 +16,21 @@ public class PlayerMovement2D : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerSprite = rb.GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
         float move = Input.GetAxisRaw("Horizontal");
+        if (move < 0)
+        {
+            playerSprite.flipX = true;
+        }
+        else if (move > 0)
+        {
+            playerSprite.flipX = false;
+        }
+
         rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
