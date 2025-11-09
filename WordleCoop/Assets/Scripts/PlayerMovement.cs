@@ -36,6 +36,7 @@ public class PlayerMovement2D : MonoBehaviour
 
         if (collision.gameObject.tag == "Tramp")
         {
+            Debug.Log("ITS HERE");
             StartCoroutine(Trampoline());
         }
     }
@@ -62,10 +63,12 @@ public class PlayerMovement2D : MonoBehaviour
     public IEnumerator Trampoline()
     {
         trampolineAnim.SetBool("isActive", true); 
+        Debug.Log("Boing");
         yield return new WaitForSeconds(0.1f);
         rb.AddForce(new Vector2(0, 1 * trampolineBoost));
         yield return new WaitForSeconds(1);
         trampolineAnim.SetBool("isActive", false); 
+        Debug.Log("No Boing");
 
     }
 }
