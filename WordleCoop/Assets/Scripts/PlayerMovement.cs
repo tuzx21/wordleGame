@@ -9,17 +9,17 @@ public class PlayerMovement2D : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer playerSprite;
     private bool isGrounded;
-    
-    
 
-     
-    void Start()
+
+
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerSprite = rb.GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         float move = Input.GetAxisRaw("Horizontal");
         if (move < 0)
@@ -50,20 +50,12 @@ public class PlayerMovement2D : MonoBehaviour
 
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Killer")
         {
             Destroy(gameObject);
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Killer")
-        {
-            Destroy(gameObject);
-        }      
     }
 
     private void OnCollisionExit2D(Collision2D collision)
