@@ -46,6 +46,16 @@ public class PlayerMovement2D : MonoBehaviour
         {
             isGrounded = true;
         }
+
+
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Killer")
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
